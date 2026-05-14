@@ -416,6 +416,13 @@ object Opener {
       }
 
       try {
+        val cmd = it.toCommandLine()
+        androidx.appcompat.app.AlertDialog.Builder(this)
+          .setTitle("Full Intent cmd")
+          .setMessage(cmd)
+          .setPositiveButton("OK", null)
+          .show()
+
         context.startActivity(intent)
       } catch (e: Exception) {
         ToastUtil.makeText(e.toString())

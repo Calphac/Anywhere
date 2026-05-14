@@ -9,10 +9,13 @@ import android.os.Bundle
 import androidx.activity.result.contract.ActivityResultContract
 import androidx.annotation.CallSuper
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.absinthe.anywhere_.AnywhereApplication
 import com.absinthe.anywhere_.AppBarActivity
 import com.absinthe.anywhere_.BuildConfig
 import com.absinthe.anywhere_.adapter.shortcut.ThirdAppsShortcutAdapter
 import com.absinthe.anywhere_.databinding.ActivityThirdAppsShortcutBinding
+import com.absinthe.anywhere_.model.database.AnywhereEntity
+import com.absinthe.anywhere_.model.ExtraBean
 import com.absinthe.anywhere_.utils.ToastUtil
 import rikka.widget.borderview.BorderView
 import timber.log.Timber
@@ -45,7 +48,27 @@ class ThirdAppsShortcutActivity : AppBarActivity<ActivityThirdAppsShortcutBindin
     val resultLauncher = registerForActivityResult(OpenCreateShortcut()) {
       it?.let {
         runCatching {
-          startActivity(it)
+          // startActivity(it)
+
+          val shortcutName = it.getStringExtra(Intent.EXTRA_SHORTCUT_NAME) ?: "Third Party APP"
+          val extraBean = ExtraBean(
+              action = it.action ?: "",
+              data = it.dataString ?: "",
+              extras = mutableListOf()
+          )
+          val doneItem = AnywhereEntity().apply {
+              id = System.currentTimeMillis().toString()
+              appName = shortcutName
+              param1 = it.`package` ?: ""
+              param2 = it.component?.className ?: ""
+              param3 = gson.toJson(extraBean)
+              description = ""
+              type = 0
+              execWithRoot = false
+          }
+          AnywhereApplication.sRepository.insert(doneItem)
+          ToastUtil.Toasty.show(this, "Added：$shortcutName")
+
         }.onFailure { t ->
           ToastUtil.Toasty.show(this, t.message ?: "Can not open this activity")
         }

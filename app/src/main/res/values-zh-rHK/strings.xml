@@ -1,5 +1,5 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
-    <string name="app_name">Anywhere-</string>
+    <string name="app_name">Anywhere</string>
     <string name="settings_title">設置</string>
     <string name="about_title">關於</string>
     <string name="shortcuts_title">Shortcuts</string>
