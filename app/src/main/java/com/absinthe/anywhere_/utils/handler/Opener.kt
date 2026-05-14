@@ -348,6 +348,7 @@ object Opener {
           if (context !is Activity) {
             addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
           }
+            addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
         }
       }
 
@@ -416,13 +417,6 @@ object Opener {
       }
 
       try {
-        val cmd = intent.toCommandLine()
-        androidx.appcompat.app.AlertDialog.Builder(this)
-          .setTitle("Full Intent cmd")
-          .setMessage(cmd)
-          .setPositiveButton("OK", null)
-          .show()
-
         context.startActivity(intent)
       } catch (e: Exception) {
         ToastUtil.makeText(e.toString())
