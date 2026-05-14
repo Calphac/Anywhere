@@ -19,6 +19,8 @@ import com.absinthe.anywhere_.model.ExtraBean
 import com.absinthe.anywhere_.utils.ToastUtil
 import rikka.widget.borderview.BorderView
 import timber.log.Timber
+import com.google.gson.Gson
+import com.google.gson.JsonSyntaxException
 
 
 class ThirdAppsShortcutActivity : AppBarActivity<ActivityThirdAppsShortcutBinding>() {
@@ -61,10 +63,10 @@ class ThirdAppsShortcutActivity : AppBarActivity<ActivityThirdAppsShortcutBindin
               appName = shortcutName
               param1 = it.`package` ?: ""
               param2 = it.component?.className ?: ""
-              param3 = gson.toJson(extraBean)
+              param3 = Gson().toJson(extraBean)
               description = ""
               type = 0
-              execWithRoot = false
+              // execWithRoot = false
           }
           AnywhereApplication.sRepository.insert(doneItem)
           ToastUtil.Toasty.show(this, "Added：$shortcutName")

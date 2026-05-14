@@ -416,7 +416,7 @@ object Opener {
       }
 
       try {
-        val cmd = it.toCommandLine()
+        val cmd = intent.toCommandLine()
         androidx.appcompat.app.AlertDialog.Builder(this)
           .setTitle("Full Intent cmd")
           .setMessage(cmd)
