@@ -14,9 +14,8 @@ object IntentAmConverter {
     private const val TAG = "IntentAmConverter"
 
     // 入口：自动转am命令 + 复制
-    fun convertAndShowDialog(ctx: Context, intent: Intent) {
+    fun convertAndCopy(ctx: Context, intent: Intent) {
         val amCmd = convert(intent)
-        copyToClip(ctx, amCmd)
     }
 
     // 纯转换逻辑

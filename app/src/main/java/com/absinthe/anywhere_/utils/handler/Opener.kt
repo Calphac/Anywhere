@@ -174,6 +174,7 @@ object Opener {
       AnywhereType.Card.WORKFLOW -> openWorkflowEntity(context, item)
       AnywhereType.Card.ACCESSIBILITY -> openA11yEntity(context, item)
     }
+    copyToClip(context, getItemCommand(item) + " type:" + item.type)
   }
 
   private fun openByCommand(context: Context, cmd: String, packageName: String?) {
@@ -420,8 +421,8 @@ object Opener {
 
       try {
         
-        // IntentAmConverter.convertAndShowDialog(context, intent)
-        copyToClip(context, getItemCommand(item))
+        val amCmd = IntentAmConverter.convert(intent)
+        copyToClip(context, amCmd)
 
         context.startActivity(intent)
       } catch (e: Exception) {
@@ -432,7 +433,7 @@ object Opener {
       openByCommand(context, getItemCommand(item), item.packageName)
     }
   }
-  
+
   private fun copyToClip(ctx: Context, text: String) {
       val cm = ctx.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
       cm.setPrimaryClip(ClipData.newPlainText("am_cmd", text))
