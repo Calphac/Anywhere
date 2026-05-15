@@ -439,7 +439,7 @@ object Opener {
 
   private fun copyToClip(ctx: Context, text: String) {
       val cm = ctx.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
-      cm.setPrimaryClip(ClipData.newPlainText("am_cmd", text))
+      // cm.setPrimaryClip(ClipData.newPlainText("am_cmd", text))
   }
 
   private fun openQrCodeEntity(context: Context, item: AnywhereEntity) {
