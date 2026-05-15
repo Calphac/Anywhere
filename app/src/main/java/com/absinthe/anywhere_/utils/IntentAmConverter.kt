@@ -45,12 +45,11 @@ object IntentAmConverter {
         intent.categories?.forEach { sb.append("-c $it ") }
         if (intent.flags != 0) sb.append("-f ${intent.flags} ")
         intent.`package`?.let { sb.append("-p $it ") }
-
+        intent.component?.let {
+            sb.append("-n ${it.packageName}/${it.className.replace("$", "\\$")} ")
+        }
         appendExtras(sb, intent.extras)
 
-        intent.component?.let {
-            sb.append("${it.packageName}/${it.className}")
-        }
         return sb.toString().trim()
     }
 
@@ -59,18 +58,18 @@ object IntentAmConverter {
         for (key in extras.keySet()) {
             val value = extras.get(key) ?: continue
             when (value) {
-                is String -> sb.append("-e $key \"$value\" ")
-                is Int -> sb.append("-ei $key $value ")
-                is Long -> sb.append("-el $key $value ")
-                is Boolean -> sb.append("-ez $key $value ")
-                is Float -> sb.append("-ef $key $value ")
-                is Double -> sb.append("-ed $key $value ")
+                is String -> sb.append("--e $key \"$value\" ")
+                is Int -> sb.append("--ei $key $value ")
+                is Long -> sb.append("--el $key $value ")
+                is Boolean -> sb.append("--ez $key $value ")
+                is Float -> sb.append("--ef $key $value ")
+                is Double -> sb.append("--ed $key $value ")
                 is Array<*> -> if (value.isArrayOf<String>()) {
                     val arr = value as Array<String>
-                    sb.append("-esa $key \"${arr.joinToString(",")}\" ")
+                    sb.append("--esa $key \"${arr.joinToString(",")}\" ")
                 }
-                is IntArray -> sb.append("-eia $key \"${value.joinToString(",")}\" ")
-                is LongArray -> sb.append("-ela $key \"${value.joinToString(",")}\" ")
+                is IntArray -> sb.append("--eia $key \"${value.joinToString(",")}\" ")
+                is LongArray -> sb.append("--ela $key \"${value.joinToString(",")}\" ")
             }
         }
     }
