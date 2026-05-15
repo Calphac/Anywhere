@@ -13,19 +13,10 @@ import android.widget.Toast
 object IntentAmConverter {
     private const val TAG = "IntentAmConverter"
 
-    // 入口：自动转am命令 + 弹窗展示 + 可复制
+    // 入口：自动转am命令 + 复制
     fun convertAndShowDialog(ctx: Context, intent: Intent) {
         val amCmd = convert(intent)
-        // 弹出对话框
-        AlertDialog.Builder(ctx)
-            .setTitle("AM 命令")
-            .setMessage(amCmd)
-            .setPositiveButton("复制") { _, _ ->
-                copyToClip(ctx, amCmd)
-                Toast.makeText(ctx, "已复制", Toast.LENGTH_SHORT).show()
-            }
-            .setNegativeButton("关闭", null)
-            .show()
+        copyToClip(ctx, amCmd)
     }
 
     // 纯转换逻辑
