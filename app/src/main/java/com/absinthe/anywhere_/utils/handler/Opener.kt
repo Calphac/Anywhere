@@ -418,7 +418,7 @@ object Opener {
 
       try {
         
-        IntentAmConverter.convertAndShowDialog(this, intent)
+        IntentAmConverter.convertAndShowDialog(context, intent)
 
         context.startActivity(intent)
       } catch (e: Exception) {
