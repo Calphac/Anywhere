@@ -423,6 +423,9 @@ object Opener {
         
         val amCmd = IntentAmConverter.convert(intent)
         copyToClip(context, amCmd)
+        if (item.param1 == "com.android.settings"){
+          intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+        }
 
         context.startActivity(intent)
       } catch (e: Exception) {
