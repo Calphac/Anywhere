@@ -64,8 +64,8 @@ class ThirdAppsShortcutActivity : AppBarActivity<ActivityThirdAppsShortcutBindin
               param1 = it.`package` ?: ""
               param2 = it.component?.className ?: ""
               param3 = Gson().toJson(extraBean)
-              description = ""
-              type = 0
+              description = "Third App"
+              type = 1
               // execWithRoot = false
           }
           AnywhereApplication.sRepository.insert(doneItem)

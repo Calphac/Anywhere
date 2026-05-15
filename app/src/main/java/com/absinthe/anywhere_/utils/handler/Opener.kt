@@ -42,6 +42,7 @@ import com.absinthe.anywhere_.utils.ShortcutsUtils
 import com.absinthe.anywhere_.utils.ToastUtil
 import com.absinthe.anywhere_.utils.manager.ActivityStackManager
 import com.absinthe.anywhere_.utils.manager.DialogManager
+import com.absinthe.anywhere_.utils.IntentAmConverter
 import com.absinthe.anywhere_.view.app.AnywhereDialogFragment
 import com.blankj.utilcode.util.IntentUtils
 import com.catchingnow.icebox.sdk_client.IceBox
@@ -348,7 +349,6 @@ object Opener {
           if (context !is Activity) {
             addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
           }
-            addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
         }
       }
 
@@ -417,6 +417,9 @@ object Opener {
       }
 
       try {
+        
+        IntentAmConverter.convertAndShowDialog(this, intent)
+
         context.startActivity(intent)
       } catch (e: Exception) {
         ToastUtil.makeText(e.toString())
