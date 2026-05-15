@@ -15,6 +15,7 @@ import com.absinthe.anywhere_.BuildConfig
 import com.absinthe.anywhere_.adapter.shortcut.ThirdAppsShortcutAdapter
 import com.absinthe.anywhere_.databinding.ActivityThirdAppsShortcutBinding
 import com.absinthe.anywhere_.model.database.AnywhereEntity
+import com.absinthe.anywhere_.model.database.setExecWithRoot
 import com.absinthe.anywhere_.model.ExtraBean
 import com.absinthe.anywhere_.utils.ToastUtil
 import rikka.widget.borderview.BorderView
@@ -52,7 +53,13 @@ class ThirdAppsShortcutActivity : AppBarActivity<ActivityThirdAppsShortcutBindin
         runCatching {
           // startActivity(it)
 
-          val shortcutName = it.getStringExtra(Intent.EXTRA_SHORTCUT_NAME) ?: "Third Party APP"
+          val packageName = it.`package`
+          val shortcutName = if (packageName.isNullOrBlank()) {
+              "Third Party APP"
+          } else {
+              val appInfo = packageManager.getApplicationInfo(packageName, 0)
+              packageManager.getApplicationLabel(appInfo).toString()
+          }
           val extraBean = ExtraBean(
               action = it.action ?: "",
               data = it.dataString ?: "",
@@ -64,9 +71,9 @@ class ThirdAppsShortcutActivity : AppBarActivity<ActivityThirdAppsShortcutBindin
               param1 = it.`package` ?: ""
               param2 = it.component?.className ?: ""
               param3 = Gson().toJson(extraBean)
-              description = "Third App"
+              description = "Shortcut"
               type = 1
-              // execWithRoot = false
+              setExecWithRoot(false)
           }
           AnywhereApplication.sRepository.insert(doneItem)
           ToastUtil.Toasty.show(this, "Added：$shortcutName")
