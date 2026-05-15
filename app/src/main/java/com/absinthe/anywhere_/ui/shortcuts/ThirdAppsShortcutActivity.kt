@@ -52,8 +52,10 @@ class ThirdAppsShortcutActivity : AppBarActivity<ActivityThirdAppsShortcutBindin
       it?.let {
         runCatching {
           // startActivity(it)
-
-          val packageName = it.`package`
+          
+          val pkgName = intent.getStringExtra(EXTRA_PACKAGE_NAME) ?: ""
+          val appInfo = context.packageManager.getApplicationInfo(pkgName, 0)
+          val packageName = context.packageManager.getApplicationLabel(appInfo).toString()
           val shortcutName = if (packageName.isNullOrBlank()) {
               "Third Party APP"
           } else {
