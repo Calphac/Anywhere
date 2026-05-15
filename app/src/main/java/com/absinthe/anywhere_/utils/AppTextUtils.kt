@@ -40,7 +40,7 @@ object AppTextUtils {
         }
 
         if (className.orEmpty().startsWith(".")) {
-          className = packageName + "/" + className
+          className = packageName + className
         }
         className = className.orEmpty().replace("\$", "\\$")
         cmd.append(String.format(Const.CMD_OPEN_ACTIVITY_FORMAT, packageName, className))

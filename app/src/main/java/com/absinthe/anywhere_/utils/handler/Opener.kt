@@ -162,6 +162,7 @@ object Opener {
   }
 
   private fun openAnywhereEntity(context: Context, item: AnywhereEntity) {
+    copyToClip(context, getItemCommand(item) + " type:" + item.type)
     when (item.type) {
       AnywhereType.Card.URL_SCHEME -> openUrlSchemeEntity(context, item)
       AnywhereType.Card.ACTIVITY -> openActivityEntity(context, item)
@@ -174,7 +175,6 @@ object Opener {
       AnywhereType.Card.WORKFLOW -> openWorkflowEntity(context, item)
       AnywhereType.Card.ACCESSIBILITY -> openA11yEntity(context, item)
     }
-    copyToClip(context, getItemCommand(item) + " type:" + item.type)
   }
 
   private fun openByCommand(context: Context, cmd: String, packageName: String?) {
