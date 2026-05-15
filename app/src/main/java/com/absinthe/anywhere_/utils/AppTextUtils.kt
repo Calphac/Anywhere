@@ -48,6 +48,10 @@ object AppTextUtils {
         extras?.let {
           cmd.append(" ").append(it.toString())
         }
+
+        if (packageName == "com.android.settings"){
+          cmd.append(" ").append("-f 0x10000000")
+        }
       }
       AnywhereType.Card.URL_SCHEME -> {
         val urlScheme = item.param1

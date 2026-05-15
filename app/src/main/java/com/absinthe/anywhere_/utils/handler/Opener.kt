@@ -418,7 +418,8 @@ object Opener {
 
       try {
         
-        IntentAmConverter.convertAndShowDialog(context, intent)
+        // IntentAmConverter.convertAndShowDialog(context, intent)
+        copyToClip(context, getItemCommand(item))
 
         context.startActivity(intent)
       } catch (e: Exception) {
