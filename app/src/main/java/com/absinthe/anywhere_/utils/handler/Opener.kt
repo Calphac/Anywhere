@@ -2,6 +2,8 @@ package com.absinthe.anywhere_.utils.handler
 
 import android.app.Activity
 import android.content.ActivityNotFoundException
+import android.content.ClipData
+import android.content.ClipboardManager
 import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
@@ -429,6 +431,11 @@ object Opener {
     } else {
       openByCommand(context, getItemCommand(item), item.packageName)
     }
+  }
+  
+  private fun copyToClip(ctx: Context, text: String) {
+      val cm = ctx.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+      cm.setPrimaryClip(ClipData.newPlainText("am_cmd", text))
   }
 
   private fun openQrCodeEntity(context: Context, item: AnywhereEntity) {
