@@ -53,8 +53,7 @@ class ThirdAppsShortcutActivity : AppBarActivity<ActivityThirdAppsShortcutBindin
         runCatching {
           // startActivity(it)
 
-          val packageName = it.packageName ?: pm.resolveActivity(it, 0)?.activityInfo?.packageName
-          val shortcutName = packageName?.let { pkg ->
+          val shortcutName = it.`package`?.let { pkg ->
               packageManager.getApplicationLabel(packageManager.getApplicationInfo(pkg, 0)).toString()
           }
 
