@@ -55,7 +55,7 @@ class ThirdAppsShortcutActivity : AppBarActivity<ActivityThirdAppsShortcutBindin
 
           val shortcutName = it.`package`?.let { pkg ->
               packageManager.getApplicationLabel(packageManager.getApplicationInfo(pkg, 0)).toString()
-          }
+          } ?: "APP"
 
           val extraBean = ExtraBean(
               action = it.action ?: "",
