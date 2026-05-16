@@ -45,9 +45,15 @@ android {
 
   buildTypes {
     debug {
-      applicationIdSuffix = ".debug"
-      manifestPlaceholders["appName"] = "Anywhere-β"
-      buildConfigField("boolean", "BETA", "true")
+        // 核心：彻底关闭 LeakCanary
+        isDebuggable = true
+        isMinifyEnabled = false
+        buildConfigField("boolean", "IS_DEBUG_BUILD", "false")
+        manifestPlaceholders["leakcanary_enabled"] = "false"
+
+        // 关键：去掉 debug 后缀 → 不会装第二个图标！
+        applicationIdSuffix = ""
+        versionNameSuffix = ""
     }
     release {
       isMinifyEnabled = true
