@@ -45,9 +45,14 @@ android {
 
   buildTypes {
     debug {
-      applicationIdSuffix = ".debug"
-      manifestPlaceholders["appName"] = "Anywhere-β"
-      buildConfigField("boolean", "BETA", "true")
+        // 禁用 debug 专属的 Leaks 工具
+        buildConfigField "boolean", "IS_DEBUG_BUILD", "false"
+        manifestPlaceholders = [
+            "leakcanary_enabled": "false"
+        ]
+        // 让 debug 包和 release 包长得一样
+        applicationIdSuffix ""
+        versionNameSuffix ""
     }
     release {
       isMinifyEnabled = true
