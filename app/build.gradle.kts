@@ -11,7 +11,7 @@ plugins {
 }
 
 val verName = "2.5.6"
-val verCode = 2050501
+val verCode = 2050502
 
 android {
   compileSdk = 34
@@ -45,16 +45,9 @@ android {
 
   buildTypes {
     debug {
-        // 核心：彻底关闭 LeakCanary
-        isDebuggable = true
-        isMinifyEnabled = false
-        buildConfigField("boolean", "BETA", "false")
-        buildConfigField("boolean", "IS_DEBUG_BUILD", "false")
-        manifestPlaceholders["leakcanary_enabled"] = "false"
-
-        // 关键：去掉 debug 后缀 → 不会装第二个图标！
-        applicationIdSuffix = ""
-        versionNameSuffix = ""
+      applicationIdSuffix = ".debug"
+      manifestPlaceholders["appName"] = "Anywhere"
+      buildConfigField("boolean", "BETA", "true")
     }
     release {
       isMinifyEnabled = true
