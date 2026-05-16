@@ -48,6 +48,7 @@ android {
         // 核心：彻底关闭 LeakCanary
         isDebuggable = true
         isMinifyEnabled = false
+        buildConfigField("boolean", "BETA", "false")
         buildConfigField("boolean", "IS_DEBUG_BUILD", "false")
         manifestPlaceholders["leakcanary_enabled"] = "false"
 
